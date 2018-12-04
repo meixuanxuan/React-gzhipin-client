@@ -4,8 +4,13 @@
 import React, {Component} from 'react'
 import { NavBar,Button,WingBlank, WhiteSpace,List,InputItem,Radio } from 'antd-mobile';
 import Logo from '../logo/logo';
+import PropTypes from 'prop-types';
 const Item = List.Item;
 class Register extends Component {
+  static propTypes = {
+    user:PropTypes.object.isRequired,
+    register:PropTypes.func.isRequired
+  }
   state = {
     // isBossChecked: true,
     laoban: true,
@@ -13,16 +18,20 @@ class Register extends Component {
     password: '',
     rePassword: ''
   }
-handleChange=(type,value)=>{
+handleChange =(type,value)=>{
   this.setState({
     [type]:value
   })
 }
-register = ()=>{
+register = async () => {
+  
+
     const {username,password,rePassword,laoban} = this.state;
     console.log(username,password,rePassword,laoban);
+    //调用容器组件传递的更新状态的方法
+    this.props.register({password,rePassword, username,type: laoban ? 'laoban' : 'dashen'});
     }
-gologin= () =>{
+goLogin = () =>{
   this.props.history.replace('/login');
 }
 
@@ -49,11 +58,9 @@ gologin= () =>{
           <WhiteSpace/>
           <Button type="primary" onClick={this.register}>注册</Button>
           <WhiteSpace/>
-          <Button onClick={this.gologin}>已有账户</Button>
+          <Button onClick={this.goLogin}>已有账户</Button>
         </WingBlank>
       </div>
-
-
     )
   }
 }

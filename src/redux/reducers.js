@@ -5,19 +5,33 @@
  包含多个用于生成新的state的reducer函数的模块
  */
 import {combineReducers} from 'redux'
-
-function xxx(state = 0, action) {
-
-  return state
+import {AUTH_SUCCESS,AUTH_ERROR} from './action-types'
+const initUserState = {
+  username:'',
+  type:'',
+  _id:'',
+  errMsg:''
+}
+function user(previousState = initUserState, action) {
+  switch (action.type){
+    case AUTH_SUCCESS:
+      return action.data;
+    // case AUTH_ERROR:
+    //   return {...initUserState,...action.data};
+    default:
+    return previousState;
+  }
 }
 
-function yyy(state = 0, action) {
-
-  return state
+const initYyyState = {};
+function yyy(previousState = initYyyState, action) {
+  switch (action.type) {
+    default :
+      return previousState;
+  }
 }
 
 // 返回合并后的reducer函数
 export default combineReducers({
-  xxx,
-  yyy
+  user
 })

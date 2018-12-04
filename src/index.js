@@ -4,12 +4,14 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import {HashRouter, Switch, Route} from 'react-router-dom'
-
-import Login from './components/login'
-import Register from './components/register'
+import {Provider}from 'react-redux';
+import store from './redux/store'
+import Login from './containers/login'
+import Register from './containers/register'
 import Main from './components/main'
 
 ReactDOM.render((
+<Provider store={store}>
   <HashRouter>
     <Switch>
       <Route path='/login' component={Login}/>
@@ -17,4 +19,6 @@ ReactDOM.render((
       <Route component={Main}/>
     </Switch>
   </HashRouter>
+</Provider>
+
 ), document.getElementById('app'))

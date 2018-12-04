@@ -2,21 +2,32 @@
  用户注册的路由组件
  */
 import React, {Component} from 'react'
+import PropTypes from 'prop-types';
 import { NavBar,Button,WingBlank, WhiteSpace,List,InputItem } from 'antd-mobile';
 import Logo from '../logo/logo';
 
 class Login extends Component {
-
+  static propTypes = {
+    user:PropTypes.object.isRequired,
+    login: PropTypes.func.isRequired
+  }
+  state ={
+    username:'',
+    password:''
+  }
   handleChange=(type,value)=>{
     this.setState({
       [type]:value
     })
   }
-  register = ()=>{
-    this.props.history.replace('/register');
+  goLogin = async() =>{
+    //收集表单数据
+    const {password,username} = this.state;
+    //调用容器组件传递的更新状态的方法
+    this.props.login({password,username})
   }
-  gologin= () =>{
-    this.props.history.replace('/login');
+  goRegister= () =>{
+    this.props.history.replace('/register');
   }
 
   render() {
@@ -35,7 +46,7 @@ class Login extends Component {
           <WhiteSpace/>
           <Button type="primary" onClick={this.gologin}>登录</Button>
           <WhiteSpace/>
-          <Button onClick={this.register}>还没有账户</Button>
+          <Button onClick={this.goRegister}>还没有账户</Button>
         </WingBlank>
       </div>
 
